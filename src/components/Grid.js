@@ -2,17 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const GridContainer = styled.div`
+  margin: auto;
   background: papayawhip;
-  height: 400px;
-  width: 400px;
+  height: 30rem;
+  width: 30rem;
   .row {
-    height: 25px;
-    width: 100%;
+    height: 6.25%;
   }
   .cell {
     display: inline-block;
-    width: 25px;
-    height: 25px;
+    width: 6.25%;
+    height: 100%;
     &.active {
       background: mediumseagreen;
     }

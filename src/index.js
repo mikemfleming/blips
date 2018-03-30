@@ -1,11 +1,19 @@
 import React from 'react';
-import ReactDom from 'react-dom';
-// import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
 
-const App = () => <h1>Hello World</h1>;
+import App from './containers/App';
+import reducer from './reducers';
 
-ReactDom.render(
-	<App/>,
+const middleware = applyMiddleware(createLogger());
+const store = createStore(reducer, middleware);
+
+ReactDOM.render(
+	<Provider store={store} >
+    <App />
+  </Provider>,
 	document.getElementById('root')
 );
 

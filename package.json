@@ -1,0 +1,48 @@
+{
+  "name": "hot-plate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/.bin/webpack --progress --colors --watch",
+    "start:dev": "webpack-dev-server --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browser-sync": "^2.23.6",
+    "browserify": "^16.1.1",
+    "es6-promise": "^4.2.4",
+    "express": "^4.16.3",
+    "pino": "^4.14.0",
+    "pino-http": "^3.2.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-promise-middleware": "^5.0.0",
+    "redux-thunk": "^2.2.0",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12"
+  },
+  "devDependencies": {
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "eslint": "^4.19.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "webpack-dev-server": "^3.1.1"
+  }
+}

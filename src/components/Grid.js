@@ -5,30 +5,37 @@ const GridContainer = styled.div`
   margin: auto;
   height: 30rem;
   width: 30rem;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
   .row {
     height: 6.25%;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid gray;
   }
   .cell {
-    border-right: 1px solid black;
+    border-right: 1px solid gray;
     display: inline-block;
     width: 6.25%;
     height: 100%;
     &.active {
-      background: black;
+      background: papayawhip;
     }
+    
   }
+  .playing { background: #e6fff2; }
 `;
 
-const renderCell = cell => <div className={`${cell ? 'active' : ''} cell`} />;
+const renderCell = currentColumn => (cell, idx) => {
+  let classes = 'cell';
+  if (cell) classes += ' active';
+  if (currentColumn === idx) classes += ' playing';
+  return <div className={classes} />;
+};
 
-const renderRow = row => <div className="row">{row.map(renderCell)}</div>;
+const renderRow = currentColumn => row => <div className="row">{row.map(renderCell(currentColumn))}</div>;
 
-const Grid = ({ grid }) => (
+const Grid = ({ grid, currentColumn }) => (
   <GridContainer>
-    {grid.map(renderRow)}
+    {grid.map(renderRow(currentColumn))}
   </GridContainer>
 );
 

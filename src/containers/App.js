@@ -5,6 +5,7 @@ import Grid from '../components/Grid';
 import { STEP_GRID, PLAY, NEXT_COLUMN, START_OVER } from '../constants';
 
 const audioContext = new AudioContext();
+const period = .25;
 
 const App = ({
   grid, stepGrid, playing, play, currentColumn, nextColumn, startOver,
@@ -27,7 +28,7 @@ const App = ({
       oscillator.type = 'square';
       oscillator.start();
       if (!idx) oscillator.onended = () => nextColumn();
-      oscillator.stop(audioContext.currentTime + .5); // stop playing .5s from now
+      oscillator.stop(audioContext.currentTime + period); // stop playing periods from now
       oscillator.connect(gainNode);
       convolver.connect(gainNode);
       gainNode.connect(audioContext.destination);
@@ -39,7 +40,7 @@ const App = ({
       const oscillator = audioContext.createOscillator();
       oscillator.start();
       oscillator.onended = () => nextColumn();
-      oscillator.stop(audioContext.currentTime + .5); // stop playing .5s from now
+      oscillator.stop(audioContext.currentTime + period); // stop playing periods from now
       oscillator.connect(gainNode);
       gainNode.gain.value = 0;
       gainNode.connect(audioContext.destination);
@@ -57,7 +58,7 @@ const App = ({
     <div>
       <button onClick={stepGrid}>Step</button>
       <button onClick={play}>Play</button>
-      <Grid grid={grid} />
+      <Grid grid={grid} currentColumn={currentColumn} />
     </div>
   );
 };

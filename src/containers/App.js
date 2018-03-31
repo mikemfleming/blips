@@ -5,7 +5,28 @@ import Grid from '../components/Grid';
 import { STEP_GRID, PLAY, NEXT_COLUMN, START_OVER } from '../constants';
 
 const audioContext = new AudioContext();
-const period = .25;
+const impulseBuffer = impulseResponse(2,4,false);
+const convolver = audioContext.createConvolver()
+convolver.buffer = impulseBuffer;
+convolver.connect(audioContext.destination);
+const period = .3;
+
+function impulseResponse( duration, decay, reverse ) {
+  var sampleRate = audioContext.sampleRate;
+  var length = sampleRate * duration;
+  var impulse = audioContext.createBuffer(2, length, sampleRate);
+  var impulseL = impulse.getChannelData(0);
+  var impulseR = impulse.getChannelData(1);
+
+  if (!decay)
+    decay = 2.0;
+  for (var i = 0; i < length; i++){
+    var n = reverse ? length - i : i;
+    impulseL[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, decay);
+    impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, decay);
+  }
+  return impulse;
+}
 
 const App = ({
   grid, stepGrid, playing, play, currentColumn, nextColumn, startOver,
@@ -22,16 +43,15 @@ const App = ({
       note += 1;
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
-      const convolver = audioContext.createConvolver();
-      oscillator.frequency.value = (note * 261.63) * (3/2); // middle c and pentatonic ratio
+      oscillator.frequency.value = (note * 130.81) * (3/2); // middle c and pentatonic ratio
       gainNode.gain.value = 0.1;
       oscillator.type = 'square';
       oscillator.start();
       if (!idx) oscillator.onended = () => nextColumn();
       oscillator.stop(audioContext.currentTime + period); // stop playing periods from now
       oscillator.connect(gainNode);
-      convolver.connect(gainNode);
-      gainNode.connect(audioContext.destination);
+      // convolver.connect(gainNode);
+      gainNode.connect(convolver);
       return oscillator;
     });
 

@@ -6,11 +6,11 @@ const GridContainer = styled.div`
   height: 30rem;
   width: 30rem;
   .row {
-    height: 3.125%;
+    height: 1.5625%;
   }
   .cell {
     display: inline-block;
-    width: 3.125%;
+    width: 1.5625%;
     height: 100%;
     &.active {
       background: papayawhip;

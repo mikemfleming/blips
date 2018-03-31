@@ -9,7 +9,7 @@ const impulseBuffer = impulseResponse(2,4,false);
 const convolver = audioContext.createConvolver()
 convolver.buffer = impulseBuffer;
 convolver.connect(audioContext.destination);
-const period = .1;
+const period = .075;
 
 function impulseResponse( duration, decay, reverse ) {
   var sampleRate = audioContext.sampleRate;
@@ -43,9 +43,9 @@ const App = ({
       note += 1;
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
-      oscillator.frequency.value = (note * 65.41) * (3/2); // middle c and pentatonic ratio
+      oscillator.frequency.value = (note * 32.70) * (3/2); // middle c and pentatonic ratio
       gainNode.gain.value = 0.1;
-      oscillator.type = 'square';
+      oscillator.type = 'triangle';
       oscillator.start();
       if (!idx) oscillator.onended = () => nextColumn();
       oscillator.stop(audioContext.currentTime + period); // stop playing periods from now
@@ -55,7 +55,7 @@ const App = ({
       return oscillator;
     });
 
-    if (!notes.length && currentColumn <= 30) {
+    if (!notes.length && currentColumn <= 60) {
       const gainNode = audioContext.createGain();
       const oscillator = audioContext.createOscillator();
       oscillator.start();
@@ -66,7 +66,7 @@ const App = ({
       gainNode.connect(audioContext.destination);
     }
 
-    if (currentColumn > 30) {
+    if (currentColumn > 60) {
       stepGrid();
       startOver();
     }

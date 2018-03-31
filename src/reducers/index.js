@@ -1,8 +1,8 @@
 
 import { STEP_GRID, RESET_GRID, PLAY, NEXT_COLUMN, START_OVER } from '../constants';
 
-const columns = 61;
-const rows = 61;
+const columns = 16;
+const rows = 16;
 
 const createGrid = (seed) => {
   const grid = [];

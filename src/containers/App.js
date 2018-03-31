@@ -43,19 +43,19 @@ const App = ({
       note += 1;
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
-      oscillator.frequency.value = (note * 32.70) * (3/2); // middle c and pentatonic ratio
+      oscillator.frequency.value = (note * 55) * (3/2); // middle c and pentatonic ratio
       gainNode.gain.value = 0.1;
-      oscillator.type = 'triangle';
+      oscillator.type = 'sine';
       oscillator.start();
       if (!idx) oscillator.onended = () => nextColumn();
       oscillator.stop(audioContext.currentTime + period); // stop playing periods from now
       oscillator.connect(gainNode);
       // convolver.connect(gainNode);
-      gainNode.connect(convolver);
+      gainNode.connect(audioContext.destination);
       return oscillator;
     });
 
-    if (!notes.length && currentColumn <= 60) {
+    if (!notes.length && currentColumn <= 15) {
       const gainNode = audioContext.createGain();
       const oscillator = audioContext.createOscillator();
       oscillator.start();
@@ -66,7 +66,7 @@ const App = ({
       gainNode.connect(audioContext.destination);
     }
 
-    if (currentColumn > 60) {
+    if (currentColumn > 15) {
       stepGrid();
       startOver();
     }

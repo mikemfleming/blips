@@ -5,16 +5,12 @@ const GridContainer = styled.div`
   margin: auto;
   height: 30rem;
   width: 30rem;
-  border-top: 1px solid gray;
-  border-left: 1px solid gray;
   .row {
-    height: 6.25%;
-    border-bottom: 1px solid gray;
+    height: 3.125%;
   }
   .cell {
-    border-right: 1px solid gray;
     display: inline-block;
-    width: 6.25%;
+    width: 3.125%;
     height: 100%;
     &.active {
       background: papayawhip;

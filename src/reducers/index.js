@@ -1,4 +1,4 @@
-import { STEP_GRID } from '../constants';
+import { STEP_GRID, START_GAME, STOP_GAME } from '../constants';
 
 const columns = 16;
 const rows = 16;
@@ -50,10 +50,21 @@ const generateNewGrid = (oldGrid) => {
 const initialState = {
   grid: createGrid(),
   currentColumn: -1,
+  interval: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case START_GAME:
+    return {
+      ...state,
+      interval: action.interval,
+    };
+    case STOP_GAME:
+    return {
+      ...state,
+      interval: clearInterval(state.interval),
+    };
     case STEP_GRID:
       const nextColumn = (state.currentColumn + 1) % columns;
       return {

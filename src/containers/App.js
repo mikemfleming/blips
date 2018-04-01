@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { PERIOD_MS } from '../../config/main.config';
 import Grid from '../components/Grid';
 import { STEP_GRID, START_GAME, STOP_GAME } from '../constants';
 
@@ -22,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
   stepGrid: () => dispatch({ type: STEP_GRID }),
   start: () => dispatch({
     type: START_GAME,
-    interval: setInterval(() => dispatch({ type: STEP_GRID }), 200),
+    interval: setInterval(() => dispatch({ type: STEP_GRID }), PERIOD_MS),
   }),
   stop: () => dispatch({ type: STOP_GAME }),
 });

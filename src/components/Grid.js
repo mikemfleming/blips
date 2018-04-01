@@ -23,7 +23,7 @@ const GridContainer = styled.div`
 
 const renderCell = currentColumn => (cell, idx) => {
   let classes = 'cell';
-  if (cell) classes += ' active';
+  if (cell.status) classes += ' active';
   if (currentColumn === idx) classes += ' playing';
   return <div className={classes} />;
 };

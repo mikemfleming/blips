@@ -49,14 +49,17 @@ const generateNewGrid = (oldGrid) => {
 
 const initialState = {
   grid: createGrid(),
+  currentColumn: -1,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case STEP_GRID:
+      const nextColumn = (state.currentColumn + 1) % columns;
       return {
         ...state,
-        grid: generateNewGrid(state.grid),
+        grid: (nextColumn === 0 && state.currentColumn > 0) ? generateNewGrid(state.grid) : state.grid,
+        currentColumn: nextColumn,
       };
     default:
       return state;

@@ -1,7 +1,4 @@
 
 export const STEP_GRID = 'STEP_GRID';
-export const RESET_GRID = 'RESET_GRID';
-export const PLAY = 'PLAY';
-export const NEXT_COLUMN = 'NEXT_COLUMN';
-export const START_OVER = 'START_OVER';
-export const START = 'START';
+export const START_GAME = 'START_GAME';
+export const STOP_GAME = 'STOP_GAME';

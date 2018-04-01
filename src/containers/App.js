@@ -1,24 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Synth from './Synth';
+import { PERIOD_MS } from '../../config/main.config';
 import Grid from '../components/Grid';
-import { STEP_GRID, PLAY, NEXT_COLUMN, START_OVER, START } from '../constants';
+import { STEP_GRID, START_GAME, STOP_GAME } from '../constants';
 
-const App = ({
-  grid, stepGrid, playing, play, currentColumn, nextColumn, start,
-}) => (
-  <div>
-    <button onClick={stepGrid}>Step</button>
-    <button onClick={start}>Start</button>
-    <Synth
-      grid={grid}
-      currentColumn={currentColumn}
-      nextColumn={nextColumn}
-    />
-    <Grid grid={grid} currentColumn={currentColumn} />
-  </div>
-);
+const App = ({ grid, stepGrid, currentColumn, start, stop }) => {
+  const currentCells = currentColumn > -1
+    ? grid.map(row => row[currentColumn]).filter(cell => cell.status)
+    : null;
+  
+  return (
+    <div>
+      <button onClick={start}>Start</button>
+      <button onClick={stop}>Stop</button>
+      <Grid grid={grid} currentColumn={currentColumn} />
+    </div>
+  );
+};
 
 const mapStateToProps = state => ({
   grid: state.grid,
@@ -28,10 +27,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   stepGrid: () => dispatch({ type: STEP_GRID }),
-  play: () => dispatch({ type: PLAY }),
-  nextColumn: () => dispatch({ type: NEXT_COLUMN }),
-  startOver: () => dispatch({ type: START_OVER }),
-  start: () => dispatch({ type: START }),
+  start: () => dispatch({
+    type: START_GAME,
+    interval: setInterval(() => dispatch({ type: STEP_GRID }), PERIOD_MS),
+  }),
+  stop: () => dispatch({ type: STOP_GAME }),
 });
 
 export default connect(

@@ -1,5 +1,4 @@
-import Tone from '../../tone';
-import { STEP_GRID, RESET_GRID, PLAY, NEXT_COLUMN, START_OVER, START } from '../constants';
+import { STEP_GRID } from '../constants';
 
 const columns = 16;
 const rows = 16;
@@ -50,9 +49,6 @@ const generateNewGrid = (oldGrid) => {
 
 const initialState = {
   grid: createGrid(),
-  playing: false,
-  currentColumn: 0,
-  tone: Tone,
 };
 
 const reducer = (state = initialState, action) => {
@@ -61,31 +57,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         grid: generateNewGrid(state.grid),
-      };
-    case RESET_GRID:
-      return {
-        ...state,
-        grid: createGrid(() => 0),
-      };
-    case PLAY:
-      return {
-        ...state,
-        playing: true,
-      };
-    case NEXT_COLUMN:
-      return {
-        ...state,
-        currentColumn: (state.currentColumn + 1) % rows,
-      };
-    case START_OVER:
-      return {
-        ...state,
-        currentColumn: 0,
-      };
-    case START:
-      state.tone.Transport.start();
-      return {
-        ...state,
       };
     default:
       return state;

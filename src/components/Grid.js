@@ -21,18 +21,18 @@ const GridContainer = styled.div`
   .playing { background: #e6fff2; }
 `;
 
-const renderCell = currentColumn => (cell, idx) => {
+const renderCell = (cell, idx) => {
   let classes = 'cell';
   if (cell.status) classes += ' active';
-  if (currentColumn === idx) classes += ' playing';
+  // if (currentColumn === idx) classes += ' playing';
   return <div className={classes} />;
 };
 
-const renderRow = currentColumn => row => <div className="row">{row.map(renderCell(currentColumn))}</div>;
+const renderRow = row => <div className="row">{row.map(renderCell)}</div>;
 
-const Grid = ({ grid, currentColumn }) => (
+const Grid = ({ grid }) => (
   <GridContainer>
-    {grid.map(renderRow(currentColumn))}
+    {grid.map(renderRow)}
   </GridContainer>
 );
 

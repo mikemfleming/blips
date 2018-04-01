@@ -1,22 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Synth from './Synth';
 import Grid from '../components/Grid';
-import { STEP_GRID, PLAY, NEXT_COLUMN, START_OVER, START } from '../constants';
+import { STEP_GRID } from '../constants';
 
-const App = ({
-  grid, stepGrid, playing, play, currentColumn, nextColumn, start,
-}) => (
+const App = ({ grid, stepGrid }) => (
   <div>
     <button onClick={stepGrid}>Step</button>
-    <button onClick={start}>Start</button>
-    <Synth
-      grid={grid}
-      currentColumn={currentColumn}
-      nextColumn={nextColumn}
-    />
-    <Grid grid={grid} currentColumn={currentColumn} />
+    <Grid grid={grid} />
   </div>
 );
 
@@ -28,10 +19,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   stepGrid: () => dispatch({ type: STEP_GRID }),
-  play: () => dispatch({ type: PLAY }),
-  nextColumn: () => dispatch({ type: NEXT_COLUMN }),
-  startOver: () => dispatch({ type: START_OVER }),
-  start: () => dispatch({ type: START }),
 });
 
 export default connect(

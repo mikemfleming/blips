@@ -7,24 +7,25 @@ import { PERIOD_MS } from '../../config/main.config';
 import Grid from '../components/Grid';
 import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL } from '../constants';
 
-const App = ({ grid, stepGrid, currentColumn, start, stop, toggleCell }) => {
+const App = ({ grid, stepGrid, currentColumn, start, stop, toggleCell, playing }) => {
   const notes = currentColumn > -1
     ? grid.map(row => row[currentColumn]).filter(cell => cell.status).map(c => c.note)
     : [];
   return (
     <div>
-      <button onClick={start}>Start</button>
-      <button onClick={stop}>Stop</button>
+      <button onClick={start} disabled={playing}>Start</button>
+      <button onClick={stop} disabled={!playing}>Stop</button>
       <Grid grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} />
       <MusicBox notes={notes} />
     </div>
   );
 };
 
-const mapStateToProps = state => ({
-  grid: state.grid,
-  playing: state.playing,
-  currentColumn: state.currentColumn,
+const mapStateToProps = ({ game }) => ({
+  grid: game.grid,
+  playing: game.playing,
+  currentColumn: game.currentColumn,
+  playing: Boolean(game.interval),
 });
 
 const mapDispatchToProps = dispatch => ({

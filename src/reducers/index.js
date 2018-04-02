@@ -1,14 +1,8 @@
-import { STEP_GRID, START_GAME, STOP_GAME } from '../constants';
-import { COLUMNS, ROWS } from '../../config/main.config';
-
-// const notes = ['C5', 'E5', 'G5', 'C4', 'E4', 'G4'];
-const notes = ['C6', 'A5', 'G5', 'E5', 'D5', 'C5', 'A4', 'G4', 'E4', 'D4', 'C4', 'A3', 'G3', 'E3', 'D3', 'C3'];
-// const notes = [ 'C8', 'A7', 'G7', 'E7', 'D7', 'C7', 'A6', 'G6', 'E6', 'D6', 'C6', 'A5', 'G5', 'E5', 'D5', 
-//                 'C5', 'A4', 'G4', 'E4', 'D4', 'C4', 'A3', 'G3', 'E3', 'D3', 'C3', 'A2', 'G2', 'E2', 'D2'];
-
+import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL } from '../constants';
+import { COLUMNS, ROWS, NOTES } from '../../config/main.config';
 
 const createGrid = () => {
-  const generateCell = idx => ({ age: 0, status: Math.floor(Math.random() * 2), note: notes[idx % notes.length] });
+  const generateCell = idx => ({ age: 0, status: 0, note: NOTES[idx % NOTES.length] });
   const grid = [];
   for (let y = 0; y < ROWS; y += 1) {
     const row = [];
@@ -66,6 +60,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         interval: clearInterval(state.interval),
+      };
+    case TOGGLE_CELL:
+      const newGrid = state.grid.slice();
+      newGrid[action.y][action.x].status = (state.grid[action.y][action.x].status + 1) % 2
+      console.log(newGrid[action.y][action.x])
+      return {
+        ...state,
+        grid: newGrid,
       };
     case STEP_GRID:
       const nextColumn = (state.currentColumn + 1) % COLUMNS;

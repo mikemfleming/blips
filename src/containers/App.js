@@ -5,9 +5,9 @@ import MusicBox from './MusicBox';
 
 import { PERIOD_MS } from '../../config/main.config';
 import Grid from '../components/Grid';
-import { STEP_GRID, START_GAME, STOP_GAME } from '../constants';
+import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL } from '../constants';
 
-const App = ({ grid, stepGrid, currentColumn, start, stop }) => {
+const App = ({ grid, stepGrid, currentColumn, start, stop, toggleCell }) => {
   const notes = currentColumn > -1
     ? grid.map(row => row[currentColumn]).filter(cell => cell.status).map(c => c.note)
     : [];
@@ -15,7 +15,7 @@ const App = ({ grid, stepGrid, currentColumn, start, stop }) => {
     <div>
       <button onClick={start}>Start</button>
       <button onClick={stop}>Stop</button>
-      <Grid grid={grid} currentColumn={currentColumn} />
+      <Grid grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} />
       <MusicBox notes={notes} />
     </div>
   );
@@ -34,6 +34,7 @@ const mapDispatchToProps = dispatch => ({
     interval: setInterval(() => dispatch({ type: STEP_GRID }), PERIOD_MS),
   }),
   stop: () => dispatch({ type: STOP_GAME }),
+  toggleCell: (x, y) => () => dispatch({ type: TOGGLE_CELL, x, y }),
 });
 
 export default connect(

@@ -3,6 +3,8 @@ const path = require('path');
 const log = require('./logger');
 const pino = require('pino-http')({ logger: log });
 
+const { PORT} = require('./config/main.config');
+
 const app = express();
 app.use(pino);
 
@@ -10,4 +12,4 @@ app.get('*/script.js', (req, res) => res.sendFile(path.join(__dirname, 'dist/bun
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, './index.html')));
 
-app.listen(4000, () => log.info('listening on 4000'));
+app.listen(PORT, () => log.info(`listening on ${PORT}`));

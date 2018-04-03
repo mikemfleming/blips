@@ -1,5 +1,7 @@
 
 module.exports = (() => {
+  const { PORT } = process.env;
+
   const PERIOD_MS = 200; // in ms
   const ROWS = 16;
   const COLUMNS = 16;

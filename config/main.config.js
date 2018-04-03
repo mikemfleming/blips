@@ -12,5 +12,6 @@ module.exports = (() => {
     ROWS,
     COLUMNS,
     NOTES,
+    PORT,
   };
 })();

@@ -1,75 +1,63 @@
-import { STEP_GRID, START_GAME, STOP_GAME } from '../constants';
-import { COLUMNS, ROWS } from '../../config/main.config';
+import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, SET_KEY } from '../constants';
 
-const notes = ['C4', 'E4', 'G4', 'C5', 'E5', 'G5'];
+import Game from '../../game';
 
-
-const createGrid = () => {
-  const generateCell = (idx) => ({ age: 0, status: Math.floor(Math.random() * 2), note: notes[idx % notes.length] });
-  const grid = [];
-  for (let y = 0; y < ROWS; y += 1) {
-    const row = [];
-    for (let x = 0; x < COLUMNS; x += 1) {
-      row.push(generateCell(y));
-    }
-    grid.push(row);
-  }
-  return grid;
-};
-
-const countNeighbors = (grid, coords) => {
-  let sum = 0 - grid[coords.y][coords.x].status;
-  for (let y = -1; y < 2; y += 1) {
-    for (let x = -1; x < 2; x += 1) {
-      sum += grid[(y + coords.y + COLUMNS) % COLUMNS][(x + coords.x + ROWS) % ROWS].status;
-    }
-  }
-  return sum;
-};
-
-const generateNewGrid = (oldGrid) => {
-  const grid = [];
-  for (let y = 0; y < ROWS; y += 1) {
-    const row = [];
-    for (let x = 0; x < COLUMNS; x += 1) {
-      const neighbors = countNeighbors(oldGrid, { x, y });
-      const oldCell = oldGrid[y][x];
-      const newCell = {
-        ...oldCell,
-        age: oldCell.age + 1,
-        status: neighbors === 3 ? 1 : 0,
-      };
-      row.push(newCell);
-    }
-    grid.push(row);
-  }
-  return grid;
-};
+const initialDimensions = { rows: 16, columns: 16 };
+const cMajorPentatonic = ['C6', 'A5', 'G5', 'E5', 'D5', 'C5', 'A4', 'G4', 'E4', 'D4', 'C4', 'A3', 'G3', 'E3', 'D3', 'C3'];
+const cMinorPentatonic = ['C6', 'A#5', 'G5', 'E#5', 'D#5', 'C5', 'A#4', 'G4', 'E#4', 'D#4', 'C4', 'A#3', 'G3', 'E#3', 'D#3', 'C3'];
 
 const initialState = {
-  grid: createGrid(),
+  grid: Game.createGrid(initialDimensions, cMajorPentatonic),
   currentColumn: -1,
   interval: null,
+  dimensions: initialDimensions,
+  musicBox: {
+    keys: [cMajorPentatonic, cMinorPentatonic],
+    currentKey: 0,
+    currentNotes: [],
+  },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case START_GAME:
-    return {
-      ...state,
-      interval: action.interval,
-    };
-    case STOP_GAME:
-    return {
-      ...state,
-      interval: clearInterval(state.interval),
-    };
-    case STEP_GRID:
-      const nextColumn = (state.currentColumn + 1) % COLUMNS;
       return {
         ...state,
-        grid: (nextColumn === 0 && state.currentColumn > 0) ? generateNewGrid(state.grid) : state.grid,
+        interval: action.interval,
+      };
+    case STOP_GAME:
+      return {
+        ...state,
+        interval: clearInterval(state.interval),
+      };
+    case TOGGLE_CELL:
+      const newGrid = state.grid.slice();
+      newGrid[action.y][action.x].status = (state.grid[action.y][action.x].status + 1) % 2;
+      return {
+        ...state,
+        grid: newGrid,
+      };
+    case STEP_GRID:
+      const nextColumn = (state.currentColumn + 1) % state.dimensions.columns;
+      const newCurrentNotes = state.currentColumn > -1
+        ? state.grid.map(row => row[state.currentColumn]).filter(cell => cell.status).map(c => c.note)
+        : [];
+      return {
+        ...state,
+        musicBox: {
+          ...state.musicBox,
+          currentNotes: newCurrentNotes,
+        },
+        grid: (nextColumn === 0 && state.currentColumn > 0) ? Game.generateNewGrid(state.grid, state.dimensions, state.musicBox.keys[state.musicBox.currentKey]) : state.grid,
         currentColumn: nextColumn,
+      };
+    case SET_KEY:
+      return {
+        ...state,
+        musicBox: {
+          ...state.musicBox,
+          currentKey: action.index,
+        },
       };
     default:
       return state;

@@ -21,18 +21,20 @@ const GridContainer = styled.div`
   .playing { background: #e6fff2; }
 `;
 
-const renderCell = currentColumn => (cell, idx) => {
+const renderCell = ({ currentColumn, toggleCell, y }) => (cell, x) => {
   let classes = 'cell';
   if (cell.status) classes += ' active';
-  if (currentColumn === idx) classes += ' playing';
-  return <div className={classes} />;
+  if (currentColumn === x) classes += ' playing';
+  return <div className={classes} onClick={toggleCell(x, y)} />;
 };
 
-const renderRow = currentColumn => row => <div className="row">{row.map(renderCell(currentColumn))}</div>;
+const renderRow = ({ currentColumn, toggleCell }) => (row, y) => (
+  <div className="row">{row.map(renderCell({ currentColumn, toggleCell, y }))}</div>
+);
 
-const Grid = ({ grid, currentColumn }) => (
+const Grid = ({ grid, currentColumn, toggleCell }) => (
   <GridContainer>
-    {grid.map(renderRow(currentColumn))}
+    {grid.map(renderRow({ currentColumn, toggleCell }))}
   </GridContainer>
 );
 

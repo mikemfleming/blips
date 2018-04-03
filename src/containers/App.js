@@ -8,24 +8,21 @@ import Grid from '../components/Grid';
 import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL } from '../constants';
 
 const App = ({ grid, stepGrid, currentColumn, start, stop, toggleCell, playing }) => {
-  const notes = currentColumn > -1
-    ? grid.map(row => row[currentColumn]).filter(cell => cell.status).map(c => c.note)
-    : [];
   return (
     <div>
       <button onClick={start} disabled={playing}>Start</button>
       <button onClick={stop} disabled={!playing}>Stop</button>
+      <MusicBox />
       <Grid grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} />
-      <MusicBox notes={notes} />
     </div>
   );
 };
 
-const mapStateToProps = ({ game }) => ({
-  grid: game.grid,
-  playing: game.playing,
-  currentColumn: game.currentColumn,
-  playing: Boolean(game.interval),
+const mapStateToProps = state => ({
+  grid: state.grid,
+  playing: state.playing,
+  currentColumn: state.currentColumn,
+  playing: Boolean(state.interval),
 });
 
 const mapDispatchToProps = dispatch => ({

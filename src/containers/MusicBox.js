@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
 
+import { SET_KEY } from '../constants';
+
 import { PERIOD_MS } from '../../config/main.config';
 
 // const freeverb = new Tone.Freeverb().toMaster();
@@ -13,17 +15,24 @@ import { PERIOD_MS } from '../../config/main.config';
 
 const synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
 
-const MusicBox = ({ notes }) => {
-  synth.triggerAttackRelease(notes, '8n');
-  return <div>asd</div>;
+const MusicBox = ({ notesToPlay, setKey }) => {
+  console.log(notesToPlay)
+  synth.triggerAttackRelease(notesToPlay, '8n');
+  return (
+    <div>
+      <div onClick={() => setKey(0)}>Major</div>
+      <div onClick={() => setKey(1)}>Minor</div>
+    </div>
+  );
 };
 
-const mapStateToProps = state => ({
-  // good place for music box settings
+const mapStateToProps = ({ musicBox }) => ({
+  notesToPlay: musicBox.currentNotes,
+  keys: musicBox.keys,
 });
 
 const mapDispatchToProps = dispatch => ({
-  // good place for music box actions
+  setKey: index => dispatch({ type: SET_KEY, index }),
 });
 
 export default connect(

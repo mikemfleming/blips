@@ -13,7 +13,9 @@ import { PERIOD_MS } from '../../config/main.config';
 // The roomSize value between. A larger roomSize will result in a longer decay. 0 - 1 i think
 // freeverb.roomSize.value = .9;
 
-const synth = new Tone.PolySynth(16, Tone.Synth).toMaster();
+const synth = new Tone.PolySynth(16, Tone.Synth);
+const volume = new Tone.Volume(-24);
+synth.chain(volume, Tone.Master);
 
 const MusicBox = ({ notesToPlay, setKey }) => {
   console.log(notesToPlay)

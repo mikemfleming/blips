@@ -50,7 +50,7 @@ exports.generateNewGrid = (oldGrid, dimensions, notes) => {
         : neighbors === 3 ? 1 : 0;
       const newCell = {
         ...oldCell,
-        age: oldCell.age + 1,
+        age: oldCell.status ? (oldCell.age + 1) : 0,
         status: newStatus,
         note: notes[y % notes.length],
       };

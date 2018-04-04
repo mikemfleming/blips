@@ -20,6 +20,7 @@
     "babelify": "^8.0.0",
     "browser-sync": "^2.23.6",
     "browserify": "^16.1.1",
+    "dotenv": "^5.0.1",
     "es6-promise": "^4.2.4",
     "express": "^4.16.3",
     "pino": "^4.14.0",

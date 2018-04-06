@@ -18,18 +18,22 @@ const volume = new Tone.Volume(-24);
 synth.chain(volume, Tone.Master);
 
 const MusicBox = ({ notesToPlay, setKey }) => {
-  synth.triggerAttackRelease(notesToPlay, '8n');
+  synth.triggerAttackRelease(notesToPlay, .2);
   return (
-    <div>
-      <button onClick={() => setKey(0)}>Major</button>
-      <button onClick={() => setKey(1)}>Minor</button>
+    <div className="h-50">
+      <div className="h-100">
+        {/*<i className="fas fa-key"></i>*/}
+        <button className="w-50 bg-light-red h-100" onClick={() => setKey(0)}>Major Pentatonic</button>
+        <button className="w-50 bg-light-red h-100" onClick={() => setKey(1)}>Minor Pentatonic</button>
+      </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ musicBox }) => ({
-  notesToPlay: musicBox.currentNotes,
-  keys: musicBox.keys,
+const mapStateToProps = (state) => ({
+  notesToPlay: state.musicBox.currentNotes,
+  keys: state.musicBox.keys,
+  playing: Boolean(state.interval),
 });
 
 const mapDispatchToProps = dispatch => ({

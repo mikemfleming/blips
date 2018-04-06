@@ -11,17 +11,23 @@ import styled from 'styled-components';
 
 const AppContainer = styled.div`
   width: 50vh;
+  @media screen and (max-width: 30em) {
+    width: 100vw;
+  }
   margin: auto;
 `;
 
 const App = ({ grid, currentColumn, start, stop, toggleCell, playing }) => {
   return (
     <AppContainer>
-      <Grid grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} />
-      <div className="tc ba">
-        {playing ? <MusicBox /> : null}
-        <button onClick={start} disabled={playing}>Start</button>
-        <button onClick={stop} disabled={!playing}>Stop</button>
+      <Grid grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} playing={playing} />
+      <div className="tc vh-50">
+        <MusicBox />
+        {
+          playing
+            ? <button className="h-50 w-100 bg-light-green" onClick={stop}>Stop</button>
+            : <button className="h-50 w-100 bg-light-green" onClick={start}>Start</button>
+        }
       </div>
     </AppContainer>
   );

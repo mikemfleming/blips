@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const GridContainer = styled.div`
-  border: 1px solid black;
   .row {
     height: 6.25%;
   }
@@ -11,27 +10,28 @@ const GridContainer = styled.div`
     width: 6.25%;
     height: 100%;
     &.active {
-      background: papayawhip;
+      background: black;
     }
-    
   }
   .playing { background: #e6fff2; }
 `;
 
-const renderCell = ({ currentColumn, toggleCell, y }) => (cell, x) => {
+const renderCell = ({ currentColumn, playing, toggleCell, y }) => (cell, x) => {
   let classes = 'cell';
   if (cell.status) classes += ' active';
   if (currentColumn === x) classes += ' playing';
-  return <div className={classes} onClick={toggleCell(x, y)} />;
+  return !playing
+    ? <div className={classes} onMouseEnter={toggleCell(x, y)} onClick={toggleCell(x, y)} />
+    : <div className={classes} />;
 };
 
-const renderRow = ({ currentColumn, toggleCell }) => (row, y) => (
-  <div className="row">{row.map(renderCell({ currentColumn, toggleCell, y }))}</div>
+const renderRow = ({ currentColumn, toggleCell, playing }) => (row, y) => (
+  <div className="row">{row.map(renderCell({ currentColumn, playing, toggleCell, y }))}</div>
 );
 
-const Grid = ({ grid, currentColumn, toggleCell }) => (
+const Grid = ({ grid, currentColumn, toggleCell, playing }) => (
   <GridContainer className="w-100-s vh-50">
-    {grid.map(renderRow({ currentColumn, toggleCell }))}
+    {grid.map(renderRow({ currentColumn, playing, toggleCell }))}
   </GridContainer>
 );
 

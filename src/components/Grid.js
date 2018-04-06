@@ -2,9 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const GridContainer = styled.div`
-  margin: auto;
-  height: 30rem;
-  width: 30rem;
   border: 1px solid black;
   .row {
     height: 6.25%;
@@ -33,7 +30,7 @@ const renderRow = ({ currentColumn, toggleCell }) => (row, y) => (
 );
 
 const Grid = ({ grid, currentColumn, toggleCell }) => (
-  <GridContainer>
+  <GridContainer className="w-100-s vh-50">
     {grid.map(renderRow({ currentColumn, toggleCell }))}
   </GridContainer>
 );

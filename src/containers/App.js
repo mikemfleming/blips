@@ -14,12 +14,12 @@ const AppContainer = styled.div`
   margin: auto;
 `;
 
-const App = ({ grid, stepGrid, currentColumn, start, stop, toggleCell, playing }) => {
+const App = ({ grid, currentColumn, start, stop, toggleCell, playing }) => {
   return (
     <AppContainer>
       <Grid grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} />
       <div className="tc ba">
-        <MusicBox />
+        {playing ? <MusicBox /> : null}
         <button onClick={start} disabled={playing}>Start</button>
         <button onClick={stop} disabled={!playing}>Stop</button>
       </div>

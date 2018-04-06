@@ -18,12 +18,11 @@ const volume = new Tone.Volume(-24);
 synth.chain(volume, Tone.Master);
 
 const MusicBox = ({ notesToPlay, setKey }) => {
-  console.log(notesToPlay)
   synth.triggerAttackRelease(notesToPlay, '8n');
   return (
     <div>
-      <div onClick={() => setKey(0)}>Major</div>
-      <div onClick={() => setKey(1)}>Minor</div>
+      <button onClick={() => setKey(0)}>Major</button>
+      <button onClick={() => setKey(1)}>Minor</button>
     </div>
   );
 };

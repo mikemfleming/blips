@@ -9,6 +9,7 @@ const GridContainer = styled.div`
     display: inline-block;
     width: 6.25%;
     height: 100%;
+    border: 1px solid white;
     &.active {
       background: black;
     }

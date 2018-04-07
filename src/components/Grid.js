@@ -11,18 +11,19 @@ const GridContainer = styled.div`
     height: 100%;
     border: 1px solid white;
     &.active {
-      background: black;
+      background: #333333;
     }
   }
-  .playing { background: #e6fff2; }
+  .playing { background: #FFFCEB; }
 `;
 
 const renderCell = ({ currentColumn, playing, toggleCell, y }) => (cell, x) => {
   let classes = 'cell';
   if (cell.status) classes += ' active';
   if (currentColumn === x) classes += ' playing';
+  if (!playing) classes += ' pointer';
   return !playing
-    ? <div className={classes} onMouseEnter={toggleCell(x, y)} onClick={toggleCell(x, y)} />
+    ? <div className={classes} onMouseEnter={toggleCell(x, y)} onTouchStart={toggleCell(x, y)} />
     : <div className={classes} />;
 };
 

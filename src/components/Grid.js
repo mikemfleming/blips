@@ -28,6 +28,7 @@ const renderCell = ({ currentColumn, playing, toggleCell, y, toggleCreateMode, c
             onTouchStart={toggleCell(x,y)} 
             onMouseUp={toggleCreateMode} 
             onMouseDown={toggleCreateMode} 
+            onClick={toggleCell(x,y)}
             onMouseOver={createMode ? toggleCell(x, y) : null}/>)
     : <div className={classes} />;
 };
@@ -37,7 +38,7 @@ const renderRow = ({ currentColumn, toggleCell, playing, toggleCreateMode, creat
 );
 
 const Grid = ({ grid, currentColumn, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode }) => (
-  <GridContainer className="w-100-s vh-50" onMouseLeave={exitCreateMode}>
+  <GridContainer className="w-100-s vh-50" onMouseLeave={() => console.log('frig')}>
     {grid.map(renderRow({ currentColumn, playing, toggleCell, toggleCreateMode, createMode }))}
   </GridContainer>
 );

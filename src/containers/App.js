@@ -5,7 +5,7 @@ import MusicBox from './MusicBox';
 
 import { PERIOD_MS } from '../../config/main.config';
 import Grid from '../components/Grid';
-import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, TOGGLE_CREATE_MODE } from '../constants';
+import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, TOGGLE_CREATE_MODE, EXIT_CREATE_MODE } from '../constants';
 
 import styled from 'styled-components';
 
@@ -17,10 +17,10 @@ const AppContainer = styled.div`
   margin: auto;
 `;
 
-const App = ({ grid, currentColumn, start, stop, toggleCell, playing, toggleCreateMode, createMode }) => {
+const App = ({ grid, currentColumn, start, stop, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode }) => {
   return (
     <AppContainer>
-      <Grid grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} playing={playing} toggleCreateMode={toggleCreateMode} createMode={createMode} />
+      <Grid exitCreateMode={exitCreateMode} grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} playing={playing} toggleCreateMode={toggleCreateMode} createMode={createMode} />
       <div className="tc vh-50">
         <MusicBox />
         {
@@ -50,6 +50,7 @@ const mapDispatchToProps = dispatch => ({
   stop: () => dispatch({ type: STOP_GAME }),
   toggleCell: (x, y) => () => dispatch({ type: TOGGLE_CELL, x, y }),
   toggleCreateMode: () => dispatch({ type: TOGGLE_CREATE_MODE }),
+  exitCreateMode: () => dispatch({ type: EXIT_CREATE_MODE }),
 });
 
 export default connect(

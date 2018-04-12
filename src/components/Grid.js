@@ -38,7 +38,7 @@ const renderRow = ({ currentColumn, toggleCell, playing, toggleCreateMode, creat
 );
 
 const Grid = ({ grid, currentColumn, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode }) => (
-  <GridContainer className="w-100-s vh-50" onMouseLeave={() => console.log('frig')}>
+  <GridContainer className="w-100-s vh-50">
     {grid.map(renderRow({ currentColumn, playing, toggleCell, toggleCreateMode, createMode }))}
   </GridContainer>
 );

@@ -1,4 +1,4 @@
-import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, SET_KEY } from '../constants';
+import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, SET_KEY, TOGGLE_CREATE_MODE } from '../constants';
 
 import Game from '../../game';
 
@@ -16,6 +16,7 @@ const initialState = {
     currentKey: 0,
     currentNotes: [],
   },
+  createMode: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -58,6 +59,11 @@ const reducer = (state = initialState, action) => {
           ...state.musicBox,
           currentKey: action.index,
         },
+      };
+    case TOGGLE_CREATE_MODE:
+      return {
+        ...state,
+        createMode: !state.createMode,
       };
     default:
       return state;

@@ -1,4 +1,4 @@
-import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, SET_KEY, TOGGLE_CREATE_MODE } from '../constants';
+import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, SET_KEY, TOGGLE_CREATE_MODE, EXIT_CREATE_MODE } from '../constants';
 
 import Game from '../../game';
 
@@ -64,6 +64,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         createMode: !state.createMode,
+      };
+    case EXIT_CREATE_MODE:
+      return {
+        ...state,
+        createMode: false,
       };
     default:
       return state;

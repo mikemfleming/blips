@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
       };
     case TOGGLE_CELL:
       const newGrid = state.grid.slice();
-      newGrid[action.y][action.x].status = (state.grid[action.y][action.x].status + 1) % 2;
+      newGrid[action.y][action.x].status = state.createMode ? 1 : (state.grid[action.y][action.x].status + 1) % 2;
       return {
         ...state,
         grid: newGrid,

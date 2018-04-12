@@ -17,23 +17,24 @@ const GridContainer = styled.div`
   .playing { background: #FFFCEB; }
 `;
 
-const renderCell = ({ currentColumn, playing, toggleCell, y }) => (cell, x) => {
+const renderCell = ({ currentColumn, playing, toggleCell, y, toggleCreateMode, createMode }) => (cell, x) => {
   let classes = 'cell';
   if (cell.status) classes += ' active';
   if (currentColumn === x) classes += ' playing';
   if (!playing) classes += ' pointer';
+
   return !playing
-    ? <div className={classes} onMouseEnter={toggleCell(x, y)} onTouchStart={toggleCell(x, y)} />
+    ? <div className={classes} onTouchStart={toggleCell(x,y)} onMouseUp={toggleCreateMode} onMouseDown={toggleCreateMode} onMouseOver={createMode ? toggleCell(x, y) : null}/>
     : <div className={classes} />;
 };
 
-const renderRow = ({ currentColumn, toggleCell, playing }) => (row, y) => (
-  <div className="row">{row.map(renderCell({ currentColumn, playing, toggleCell, y }))}</div>
+const renderRow = ({ currentColumn, toggleCell, playing, toggleCreateMode, createMode }) => (row, y) => (
+  <div className="row">{row.map(renderCell({ currentColumn, playing, toggleCell, y, toggleCreateMode, createMode }))}</div>
 );
 
-const Grid = ({ grid, currentColumn, toggleCell, playing }) => (
+const Grid = ({ grid, currentColumn, toggleCell, playing, toggleCreateMode, createMode }) => (
   <GridContainer className="w-100-s vh-50">
-    {grid.map(renderRow({ currentColumn, playing, toggleCell }))}
+    {grid.map(renderRow({ currentColumn, playing, toggleCell, toggleCreateMode, createMode }))}
   </GridContainer>
 );
 

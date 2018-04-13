@@ -20,15 +20,9 @@ const AppContainer = styled.div`
 const App = ({ grid, currentColumn, start, stop, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode }) => {
   return (
     <AppContainer>
+      <h1>Blips of Light</h1>
       <Grid exitCreateMode={exitCreateMode} grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} playing={playing} toggleCreateMode={toggleCreateMode} createMode={createMode} />
-      <div className="tc vh-50">
-        <MusicBox />
-        {
-          playing
-            ? <button className="h-50 w-100 bg-light-green" onClick={stop}>Stop</button>
-            : <button className="h-50 w-100 bg-light-green" onClick={start}>Start</button>
-        }
-      </div>
+      <MusicBox />
     </AppContainer>
   );
 };
@@ -43,11 +37,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   stepGrid: () => dispatch({ type: STEP_GRID }),
-  start: () => dispatch({
-    type: START_GAME,
-    interval: setInterval(() => dispatch({ type: STEP_GRID }), PERIOD_MS),
-  }),
-  stop: () => dispatch({ type: STOP_GAME }),
   toggleCell: (x, y) => () => dispatch({ type: TOGGLE_CELL, x, y }),
   toggleCreateMode: () => dispatch({ type: TOGGLE_CREATE_MODE }),
   exitCreateMode: () => dispatch({ type: EXIT_CREATE_MODE }),

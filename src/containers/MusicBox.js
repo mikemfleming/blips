@@ -36,7 +36,7 @@ const Container = styled.div`
     width: 10px;
     border-radius: 100%;
     background: #111111;
-    &.bouncing { animation: bounce .5s ease-in-out infinite; }
+    &.bouncing { animation: bounce .5s ease-in-out infinite, major-phase .5s ease-in-out infinite; }
 
     &.bouncing:nth-child(1) { animation-delay: .1s; }
     &.bouncing:nth-child(2) { animation-delay: .2s; }
@@ -46,14 +46,17 @@ const Container = styled.div`
   }
 
   @keyframes bounce {
-    0% { background-color: #9400D3;  }
-    20% { background-color: #0000FF; }
     25% { transform: translateY(5px); }
-    40% { background-color: #00FF00; }
-    60% { background-color: #FFFF00; }
     75% { transform: translateY(-5px); }
-    80% { background-color: #FF7F00; }
-    100% { background-color: #FF0000; }
+  }
+
+  @keyframes major-phase {
+    0% { background: #9400D3; }
+    20% { background: #0000FF; }
+    40% { background: #00FF00; }
+    60% { background: #FFFF00; }
+    80% { background: #FF7F00; }
+    100% { background: #FF0000; }
   }
 `;
 

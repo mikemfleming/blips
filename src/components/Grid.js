@@ -2,6 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const GridContainer = styled.div`
+  height: 45vw;
+  @media (max-width: 768px) {
+    height: 90vw;
+  }
   .row {
     height: 6.25%;
   }
@@ -48,7 +52,7 @@ const renderRow = ({ currentColumn, toggleCell, playing, toggleCreateMode, creat
 );
 
 const Grid = ({ grid, currentColumn, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode }) => (
-  <GridContainer className="ba bw3 w-100-s vh-50" onMouseLeave={exitCreateMode}>
+  <GridContainer className="ba bw3" onMouseLeave={exitCreateMode}>
     {grid.map(renderRow({ currentColumn, playing, toggleCell, toggleCreateMode, createMode }))}
   </GridContainer>
 );

@@ -10,11 +10,11 @@ import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, TOGGLE_CREATE_MODE, EXIT
 import styled from 'styled-components';
 
 const AppContainer = styled.div`
-  width: 50vh;
-  @media screen and (max-width: 30em) {
-    width: 100vw;
-  }
   margin: auto;
+  max-width: 45vw;
+  @media (max-width: 768px) {
+    max-width: 90vw;
+  }
 `;
 
 const App = ({ grid, currentColumn, start, stop, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode }) => {

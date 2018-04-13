@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const GridContainer = styled.div`
-  height: 45vw;
+  height: 40vw;
   @media (max-width: 768px) {
     height: 90vw;
   }

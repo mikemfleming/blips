@@ -11,18 +11,10 @@ import styled from 'styled-components';
 
 const AppContainer = styled.div`
   margin: auto;
-  max-width: 45vw;
+  max-width: 40vw;
+  font-size: 1.5rem;
   @media (max-width: 768px) {
     max-width: 90vw;
-  }
-  button {
-    background: white;
-    color: #111111;
-    &:hover {
-      background: #111111;
-      color: white;
-      cursor: pointer;
-    }
   }
 `;
 

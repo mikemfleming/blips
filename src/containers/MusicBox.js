@@ -21,9 +21,9 @@ const MusicBox = ({ notesToPlay, setKey, playing, start, stop }) => {
   synth.triggerAttackRelease(notesToPlay, .2);
   return (
     <div className="h-50 pt2">
-      <button className="f3 grow b--black mr1" onClick={() => setKey(0)}>Major Pentatonic</button>
-      <button className="f3 grow b--black mr1" onClick={() => setKey(1)}>Minor Pentatonic</button>
-      <button className="f3 grow b--black mr1" onClick={playing ? stop : start}>{playing ? 'Stop' : 'Start'}</button>
+      <button className="f3 b--black mr1" onClick={() => setKey(0)}>Major Pentatonic</button>
+      <button className="f3 b--black mr1" onClick={() => setKey(1)}>Minor Pentatonic</button>
+      <i className={`fas ${playing ? 'fa-pause' : 'fa-play'} f3 fr`} onClick={playing ? stop : start}></i>
     </div>
   );
 };

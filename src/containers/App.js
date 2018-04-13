@@ -15,12 +15,21 @@ const AppContainer = styled.div`
   @media (max-width: 768px) {
     max-width: 90vw;
   }
+  button {
+    background: white;
+    color: #111111;
+    &:hover {
+      background: #111111;
+      color: white;
+      cursor: pointer;
+    }
+  }
 `;
 
 const App = ({ grid, currentColumn, start, stop, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode }) => {
   return (
     <AppContainer>
-      <h1>Blips of Light</h1>
+      <h1>Blips of Life</h1>
       <Grid exitCreateMode={exitCreateMode} grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} playing={playing} toggleCreateMode={toggleCreateMode} createMode={createMode} />
       <MusicBox />
     </AppContainer>

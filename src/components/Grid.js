@@ -10,11 +10,21 @@ const GridContainer = styled.div`
     width: 6.25%;
     height: 100%;
     border: 1px solid white;
+    background: #F4F4F4;
     &.active {
-      background: #333333;
+      background: #111111;
+      &.playing { animation: trip .2s infinite; }
     }
   }
-  .playing { background: #FFFCEB; }
+  .playing { background: #EEEEEE; }
+  @keyframes trip {
+    0% { background-color: #9400D3;  }
+    20% { background-color: #0000FF; }
+    40% { background-color: #00FF00; }
+    60% { background-color: #FFFF00; }
+    80% { background-color: #FF7F00; }
+    100% { background-color: #FF0000; }
+  }
 `;
 
 const renderCell = ({ currentColumn, playing, toggleCell, y, toggleCreateMode, createMode }) => (cell, x) => {
@@ -38,7 +48,7 @@ const renderRow = ({ currentColumn, toggleCell, playing, toggleCreateMode, creat
 );
 
 const Grid = ({ grid, currentColumn, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode }) => (
-  <GridContainer className="w-100-s vh-50" onMouseLeave={exitCreateMode}>
+  <GridContainer className="ba bw3 w-100-s vh-50" onMouseLeave={exitCreateMode}>
     {grid.map(renderRow({ currentColumn, playing, toggleCell, toggleCreateMode, createMode }))}
   </GridContainer>
 );

@@ -1,4 +1,4 @@
-import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, SET_KEY, TOGGLE_CREATE_MODE, EXIT_CREATE_MODE } from '../constants';
+import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, TOGGLE_KEY, TOGGLE_CREATE_MODE, EXIT_CREATE_MODE } from '../constants';
 
 import Game from '../../game';
 
@@ -52,12 +52,12 @@ const reducer = (state = initialState, action) => {
         grid: (nextColumn === 0 && state.currentColumn > 0) ? Game.generateNewGrid(state.grid, state.dimensions, state.musicBox.keys[state.musicBox.currentKey]) : state.grid,
         currentColumn: nextColumn,
       };
-    case SET_KEY:
+    case TOGGLE_KEY:
       return {
         ...state,
         musicBox: {
           ...state.musicBox,
-          currentKey: action.index,
+          currentKey: (state.musicBox.currentKey + 1) % state.musicBox.keys.length,
         },
       };
     case TOGGLE_CREATE_MODE:

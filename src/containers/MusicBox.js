@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Tone from 'tone';
 import styled from 'styled-components';
 
-import { TOGGLE_KEY, START_GAME, STOP_GAME, STEP_GRID } from '../constants';
+import { TOGGLE_KEY, START_GAME, STOP_GAME, STEP_GRID, RESET } from '../constants';
 
 import { PERIOD_MS } from '../../config/main.config';
 
@@ -82,21 +82,23 @@ const synth = new Tone.PolySynth(16, Tone.Synth);
 const volume = new Tone.Volume(-24);
 synth.chain(volume, Tone.Master);
 
-const MusicBox = ({ notesToPlay, toggleKey, playing, start, stop, isMajorKey }) => {
+const MusicBox = ({ notesToPlay, toggleKey, playing, start, stop, isMajorKey, reset }) => {
   synth.triggerAttackRelease(notesToPlay, .2);
   return (
     <Container>
       <div className="fl w-50">
-        <div className="key-visualizer" onClick={toggleKey}>
+        <i className={`fas ${playing ? 'fa-pause' : 'fa-play'} pointer mr2`} onClick={playing ? stop : start}></i>
+        <i className={`fas mr2 fa-times ${playing ? '' : 'pointer'}`} onClick={playing ? null : reset}></i>
+        <i className="fas pointer mr2 fa-volume-up"></i>
+      </div>
+      <div className="fl w-50">
+        <div className="key-visualizer fr" onClick={toggleKey}>
           <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`}></div>
           <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`}></div>
           <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`}></div>
           <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`}></div>
           <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`}></div>
         </div>
-      </div>
-      <div className="fl w-50">
-        <i className={`fas ${playing ? 'fa-pause' : 'fa-play'} fr pointer`} onClick={playing ? stop : start}></i>
       </div>
     </Container>
   );
@@ -116,6 +118,7 @@ const mapDispatchToProps = dispatch => ({
     interval: setInterval(() => dispatch({ type: STEP_GRID }), PERIOD_MS),
   }),
   stop: () => dispatch({ type: STOP_GAME }),
+  reset: () => dispatch({ type: RESET }),
 });
 
 export default connect(

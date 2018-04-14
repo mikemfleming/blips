@@ -19,28 +19,43 @@ const Container = styled.div`
     width: 6rem;
     height 2rem;
     background: white;
-    &:hover {
-      cursor: pointer;
+
+    .bouncey-ball {
+      height: 10px;
+      width: 10px;
+      border-radius: 100%;
       background: #111111;
-      .bouncey-ball { background: #F4F4F4; }
-    }
-  }
 
-  .bouncey-ball {
-    height: 10px;
-    width: 10px;
-    border-radius: 100%;
-    background: #111111;
-    &.bouncing {
-      &.major { animation: bounce .5s ease-in-out infinite, major-phase .5s ease-in-out infinite; }
-      &.minor { animation: bounce .5s ease-in-out infinite, minor-phase .5s ease-in-out infinite; }
+      &.bouncing {
+        &.major { animation: bounce .5s ease-in-out infinite, major-phase .5s ease-in-out infinite; }
+        &.minor { animation: bounce .5s ease-in-out infinite, minor-phase .5s ease-in-out infinite; }
+        &:nth-child(1) { animation-delay: .1s; }
+        &:nth-child(2) { animation-delay: .2s; }
+        &:nth-child(3) { animation-delay: .3s; }
+        &:nth-child(4) { animation-delay: .4s; }
+        &:nth-child(5) { animation-delay: .5s; }
+      }
     }
 
-    &.bouncing:nth-child(1) { animation-delay: .1s; }
-    &.bouncing:nth-child(2) { animation-delay: .2s; }
-    &.bouncing:nth-child(3) { animation-delay: .3s; }
-    &.bouncing:nth-child(4) { animation-delay: .4s; }
-    &.bouncing:nth-child(5) { animation-delay: .5s; }
+    &:hover { cursor: pointer; }
+
+    &:active {
+      background: #111111;
+
+      .bouncey-ball {
+        background: #F4F4F4;
+
+        &.bouncing {
+          &.major { animation: bounce .5s ease-in-out infinite; }
+          &.minor { animation: bounce .5s ease-in-out infinite; }
+          &:nth-child(1) { animation-delay: .1s; }
+          &:nth-child(2) { animation-delay: .2s; }
+          &:nth-child(3) { animation-delay: .3s; }
+          &:nth-child(4) { animation-delay: .4s; }
+          &:nth-child(5) { animation-delay: .5s; }
+        }
+      }
+    }
   }
 
   @keyframes bounce {

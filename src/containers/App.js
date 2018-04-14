@@ -21,7 +21,7 @@ const AppContainer = styled.div`
 const App = ({ grid, currentColumn, start, stop, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode }) => {
   return (
     <AppContainer>
-      <h1>Blips of Life</h1>
+      <h1 className="mb2">Blips of Life</h1>
       <Grid exitCreateMode={exitCreateMode} grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} playing={playing} toggleCreateMode={toggleCreateMode} createMode={createMode} />
       <MusicBox />
     </AppContainer>

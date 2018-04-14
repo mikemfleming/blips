@@ -1,4 +1,4 @@
-import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, TOGGLE_KEY, TOGGLE_CREATE_MODE, EXIT_CREATE_MODE, RESET } from '../constants';
+import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, TOGGLE_KEY, TOGGLE_CREATE_MODE, EXIT_CREATE_MODE, RESET, TOGGLE_MUTE } from '../constants';
 
 import Game from '../../game';
 
@@ -15,6 +15,7 @@ const initialState = {
     keys: [cMajorPentatonic, cMinorPentatonic],
     currentKey: 0,
     currentNotes: [],
+    mute: false,
   },
   createMode: false,
 };
@@ -79,6 +80,14 @@ const reducer = (state = initialState, action) => {
           ...state.musicBox,
           currentNotes: [],
         }
+      };
+    case TOGGLE_MUTE:
+      return {
+        ...state,
+        musicBox: {
+          ...state.musicBox,
+          mute: !state.musicBox.mute,
+        },
       };
     default:
       return state;

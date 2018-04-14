@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Tone from 'tone';
 import styled from 'styled-components';
 
-import { TOGGLE_KEY, START_GAME, STOP_GAME, STEP_GRID, RESET } from '../constants';
+import { TOGGLE_KEY, START_GAME, STOP_GAME, STEP_GRID, RESET, TOGGLE_MUTE } from '../constants';
 
 import { PERIOD_MS } from '../../config/main.config';
 
@@ -79,17 +79,18 @@ const Container = styled.div`
 `;
 
 const synth = new Tone.PolySynth(16, Tone.Synth);
-const volume = new Tone.Volume(-24);
+const volume = new Tone.Volume(-16);
 synth.chain(volume, Tone.Master);
 
-const MusicBox = ({ notesToPlay, toggleKey, playing, start, stop, isMajorKey, reset }) => {
+const MusicBox = ({ notesToPlay, toggleKey, playing, start, stop, isMajorKey, reset, toggleMute, isMuted }) => {
+  volume.mute = isMuted;
   synth.triggerAttackRelease(notesToPlay, .2);
   return (
     <Container>
       <div className="fl w-50">
         <i className={`fas ${playing ? 'fa-pause' : 'fa-play'} pointer mr2`} onClick={playing ? stop : start}></i>
         <i className={`fas mr2 fa-times ${playing ? '' : 'pointer'}`} onClick={playing ? null : reset}></i>
-        <i className="fas pointer mr2 fa-volume-up"></i>
+        <i className={`fas pointer mr2 ${isMuted ? 'fa-volume-off' : 'fa-volume-up'}`} onClick={toggleMute}></i>
       </div>
       <div className="fl w-50">
         <div className="key-visualizer fr" onClick={toggleKey}>
@@ -109,6 +110,7 @@ const mapStateToProps = (state) => ({
   keys: state.musicBox.keys,
   playing: Boolean(state.interval),
   isMajorKey: state.musicBox.currentKey === 0,
+  isMuted: state.musicBox.mute,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -119,6 +121,7 @@ const mapDispatchToProps = dispatch => ({
   }),
   stop: () => dispatch({ type: STOP_GAME }),
   reset: () => dispatch({ type: RESET }),
+  toggleMute: () => dispatch({ type: TOGGLE_MUTE }),
 });
 
 export default connect(

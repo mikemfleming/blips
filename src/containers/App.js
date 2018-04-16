@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import MusicBox from './MusicBox';
 
@@ -7,24 +8,13 @@ import { PERIOD_MS } from '../../config/main.config';
 import Grid from '../components/Grid';
 import { STEP_GRID, START_GAME, STOP_GAME, TOGGLE_CELL, TOGGLE_CREATE_MODE, EXIT_CREATE_MODE } from '../constants';
 
-import styled from 'styled-components';
-
-const AppContainer = styled.div`
-  margin: auto;
-  max-width: 40vw;
-  font-size: 1.5rem;
-  @media (max-width: 768px) {
-    max-width: 90vw;
-  }
-`;
-
 const App = ({ grid, currentColumn, start, stop, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode }) => {
   return (
-    <AppContainer>
-      <h1 className="mb2">Blips of Life</h1>
+    <div>
+      <Link to="/about" className="link dim black"><h1 className="mb2">Blips of Life</h1></Link>
       <Grid exitCreateMode={exitCreateMode} grid={grid} currentColumn={currentColumn} toggleCell={toggleCell} playing={playing} toggleCreateMode={toggleCreateMode} createMode={createMode} />
       <MusicBox />
-    </AppContainer>
+    </div>
   );
 };
 

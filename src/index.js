@@ -31,10 +31,18 @@ const GridThing = styled.div`
 const About = () => (
   <div>
     <Link to="/" className="link dim black"><h1 className="mb2">Blips of Life</h1></Link>
-    <GridThing className="pl3 pr3 ba bw3">
-      <div className="f5 lh-copy measure tj center">
-        <p>Lorem ipsum dolor amet coloring book gochujang tote bag, vice enamel pin prism whatever pitchfork. Snackwave tbh neutra poutine, hell of bespoke next level drinking vinegar shaman. Church-key chartreuse chambray, biodiesel live-edge jianbing wayfarers disrupt umami cold-pressed.</p>
-        <p>Dreamcatcher irony woke shabby chic. Fingerstache cronut chia shaman, normcore man bun cray VHS tbh iceland poutine bespoke. Shabby chic bushwick ennui pabst, skateboard 3 wolf moon vexillologist. Mixtape pitchfork pour-over twee austin, wayfarers you probably haven't heard of them vaporware tumeric.</p>
+    <GridThing className="pl3 pr3 pt3-l ba bw3">
+      <div className="f6 f5-l lh-copy measure tj center">
+        <p>
+          Patterns often emerge from chaotic action, sometimes only briefly. Their continuation balances
+           along a knife's edge between entropy and order. To truly appreciate a chaotic world I
+           picture each moment as a part of a longer song.
+        </p>
+        <p>
+          <em>Blips</em> is inspired by <a className="link dim blue near-black" target="_blank" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a> and powered by React, Redux, Styled Components, and
+           Tone.js. Source code is available <a className="link dim blue near-black" target="_blank" href="https://github.com/mikemfleming/game-of-life-synth">here</a>.
+        </p>
+        <Link className="link" to="/"><p className="f6 dim near-black">>> Back</p></Link>
       </div>
     </GridThing>
   </div>

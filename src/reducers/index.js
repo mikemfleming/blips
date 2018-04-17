@@ -34,7 +34,9 @@ const reducer = (state = initialState, action) => {
       };
     case TOGGLE_CELL:
       const newGrid = state.grid.slice();
-      newGrid[action.y][action.x].status = state.createMode ? 1 : (state.grid[action.y][action.x].status + 1) % 2;
+      newGrid[action.y][action.x].status = state.createMode
+        ? 1
+        : (state.grid[action.y][action.x].status + 1) % 2;
       return {
         ...state,
         grid: newGrid,
@@ -42,7 +44,8 @@ const reducer = (state = initialState, action) => {
     case STEP_GRID:
       const nextColumn = (state.currentColumn + 1) % state.dimensions.columns;
       const newCurrentNotes = state.currentColumn > -1
-        ? state.grid.map(row => row[state.currentColumn]).filter(cell => cell.status).map(c => c.note)
+        ? (state.grid.map(row => row[state.currentColumn])
+          .filter(cell => cell.status).map(c => c.note))
         : [];
       return {
         ...state,
@@ -50,7 +53,9 @@ const reducer = (state = initialState, action) => {
           ...state.musicBox,
           currentNotes: newCurrentNotes,
         },
-        grid: (nextColumn === 0 && state.currentColumn > 0) ? Game.generateNewGrid(state.grid, state.dimensions, state.musicBox.keys[state.musicBox.currentKey]) : state.grid,
+        grid: ((nextColumn === 0 && state.currentColumn > 0)
+          ? Game.generateNewGrid(state.grid, state.dimensions, state.musicBox.keys[state.musicBox.currentKey])
+          : state.grid),
         currentColumn: nextColumn,
       };
     case TOGGLE_KEY:
@@ -79,7 +84,7 @@ const reducer = (state = initialState, action) => {
         musicBox: {
           ...state.musicBox,
           currentNotes: [],
-        }
+        },
       };
     case TOGGLE_MUTE:
       return {

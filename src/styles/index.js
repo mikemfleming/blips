@@ -1,13 +1,17 @@
 import styled from 'styled-components';
 
-export const GridThing = styled.div`
-  height: 40vw;
+export const AppContainer = styled.div`
+  margin: auto;
+  max-width: 40vw;
+  font-size: 1.5rem;
   @media (max-width: 768px) {
-    height: 90vw;
+    max-width: 90vw;
   }
 `;
 
-export const GridContainer = styled.div`
+// from about: pl3 pr3 pt3-l ba bw3
+// from grid: ba bw3
+export const Box = styled.div`
   height: 40vw;
   @media (max-width: 768px) {
     height: 90vw;
@@ -37,16 +41,7 @@ export const GridContainer = styled.div`
   }
 `;
 
-export const AppContainer = styled.div`
-  margin: auto;
-  max-width: 40vw;
-  font-size: 1.5rem;
-  @media (max-width: 768px) {
-    max-width: 90vw;
-  }
-`;
-
-export const Container = styled.div`
+export const Controls = styled.div`
   height: 50%;
   padding-top: .5rem;
 

@@ -6,7 +6,7 @@ import { TOGGLE_KEY, START_GAME, STOP_GAME, STEP_GRID, RESET, TOGGLE_MUTE } from
 
 import { PERIOD_MS } from '../../config/main.config';
 
-import { Container } from '../styles';
+import { Controls } from '../styles';
 
 const synth = new Tone.PolySynth(16, Tone.Synth);
 const volume = new Tone.Volume(-16);
@@ -18,7 +18,7 @@ const MusicBox = ({
   volume.mute = isMuted;
   synth.triggerAttackRelease(notesToPlay, 0.2);
   return (
-    <Container>
+    <Controls>
       <div className="fl w-50">
         <i className={`fas ${playing ? 'fa-pause' : 'fa-play'} pointer mr2`} onClick={playing ? stop : start} />
         <i className={`fas mr2 fa-times ${playing ? '' : 'pointer'}`} onClick={playing ? null : reset} />
@@ -33,7 +33,7 @@ const MusicBox = ({
           <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`} />
         </div>
       </div>
-    </Container>
+    </Controls>
   );
 };
 

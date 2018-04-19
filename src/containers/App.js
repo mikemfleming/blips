@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import MusicBox from './MusicBox';
 
+import { Box } from '../styles';
+
 import Header from '../components/Header';
-import Grid from '../components/Grid';
+import Grid from './Grid';
 import { TOGGLE_CELL, TOGGLE_CREATE_MODE, EXIT_CREATE_MODE } from '../constants';
 
 const App = ({

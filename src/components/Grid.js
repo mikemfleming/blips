@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GridContainer } from '../styles';
+import { Box } from '../styles';
 
 const renderCell = ({
   currentColumn, playing, toggleCell, y, toggleCreateMode, createMode,
@@ -34,11 +34,11 @@ const renderRow = ({
 const Grid = ({
   grid, currentColumn, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode,
 }) => (
-  <GridContainer className="ba bw3" onMouseLeave={exitCreateMode}>
+  <Box className="ba bw3" onMouseLeave={exitCreateMode}>
     {grid.map(renderRow({
  currentColumn, playing, toggleCell, toggleCreateMode, createMode,
 }))}
-  </GridContainer>
+  </Box>
 );
 
 export default Grid;

@@ -1,41 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Tone from 'tone';
 
 import { TOGGLE_KEY, START_GAME, STOP_GAME, STEP_GRID, RESET, TOGGLE_MUTE } from '../constants';
 
 import { PERIOD_MS } from '../../config/main.config';
 
-import { Controls } from '../styles';
-
-const synth = new Tone.PolySynth(16, Tone.Synth);
-const volume = new Tone.Volume(-16);
-synth.chain(volume, Tone.Master);
+import Controls from '../components/Controls';
 
 const MusicBox = ({
-  notesToPlay, toggleKey, playing, start, stop, isMajorKey, reset, toggleMute, isMuted,
-}) => {
-  volume.mute = isMuted;
-  synth.triggerAttackRelease(notesToPlay, 0.2);
-  return (
-    <Controls>
-      <div className="fl w-50">
-        <i className={`fas ${playing ? 'fa-pause' : 'fa-play'} pointer mr2`} onClick={playing ? stop : start} />
-        <i className={`fas mr2 fa-times ${playing ? '' : 'pointer'}`} onClick={playing ? null : reset} />
-        <i className={`fas pointer mr2 ${isMuted ? 'fa-volume-off' : 'fa-volume-up'}`} onClick={toggleMute} />
-      </div>
-      <div className="fl w-50">
-        <div className="key-visualizer fr" onClick={toggleKey}>
-          <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`} />
-          <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`} />
-          <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`} />
-          <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`} />
-          <div className={`bouncey-ball ${playing ? 'bouncing' : ''} ${isMajorKey ? 'major' : 'minor'}`} />
-        </div>
-      </div>
-    </Controls>
+  toggleKey, playing, start, stop, isMajorKey, reset, toggleMute, isMuted,
+}) => (
+    <Controls
+      playing={playing}
+      start={start}
+      stop={stop}
+      reset={reset}
+      toggleMute={toggleMute}
+      toggleKey={toggleKey}
+      isMajorKey={isMajorKey}
+      isMuted={isMuted}
+    />
   );
-};
 
 const mapStateToProps = state => ({
   notesToPlay: state.musicBox.currentNotes,

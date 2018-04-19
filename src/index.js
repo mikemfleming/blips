@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger';
 import { BrowserRouter, Route, BrowserHistory } from 'react-router-dom';
 
 import { AppContainer } from './styles';
-import App from './containers/App';
+import App from './components/App';
 import About from './components/About';
 import reducer from './reducers';
 

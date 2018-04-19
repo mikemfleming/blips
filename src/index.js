@@ -13,7 +13,6 @@ import reducer from './reducers';
 const middleware = applyMiddleware(createLogger());
 const store = createStore(reducer, middleware);
 
-
 ReactDOM.render(
   <Provider store={store} >
     <BrowserRouter history={BrowserHistory}>

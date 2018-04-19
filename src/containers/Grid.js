@@ -1,26 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import GridComponent from '../components/Grid';
 import Row from '../components/Row';
 import { Box } from '../styles';
 import {EXIT_CREATE_MODE, TOGGLE_CELL, TOGGLE_CREATE_MODE} from "../constants";
 
 const Grid = ({ grid, currentColumn, playing, createMode, toggleCell, toggleCreateMode, exitCreateMode }) => (
-  <Box className="ba bw3" onMouseLeave={exitCreateMode}>
-    {
-      grid.map((row, y) => (
-        <Row
-          row={row}
-          currentColumn={currentColumn}
-          playing={playing}
-          toggleCell={toggleCell}
-          toggleCreateMode={toggleCreateMode}
-          createMode={createMode}
-          y={y}
-        />
-      ))
-    }
-  </Box>
+  <GridComponent
+    grid={grid}
+    currentColumn={currentColumn}
+    playing={playing}
+    createMode={createMode}
+    toggleCell={toggleCell}
+    toggleCreateMode={toggleCreateMode}
+    exitCreateMode={exitCreateMode}
+  />
 );
 
 const mapStateToProps = state => ({

@@ -5,12 +5,12 @@ import { TOGGLE_KEY, START_GAME, STOP_GAME, STEP_GRID, RESET, TOGGLE_MUTE } from
 
 import { PERIOD_MS } from '../../config/main.config';
 
-import Controls from '../components/Controls';
+import ControlsComponent from '../components/Controls';
 
-const MusicBox = ({
+const Controls = ({
   toggleKey, playing, start, stop, isMajorKey, reset, toggleMute, isMuted,
 }) => (
-    <Controls
+    <ControlsComponent
       playing={playing}
       start={start}
       stop={stop}
@@ -44,4 +44,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(MusicBox);
+)(Controls);

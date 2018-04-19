@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from './Header';
-import MusicBox from '../containers/MusicBox';
+import Controls from '../containers/Controls';
 import Grid from '../containers/Grid';
 import { Box } from '../styles';
 
@@ -9,7 +9,7 @@ const App = () => (
   <div>
     <Header url="/about" />
     <Grid />
-    <MusicBox />
+    <Controls />
   </div>
 );
 

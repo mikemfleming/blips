@@ -16,6 +16,14 @@ import {
   MINOR_PENTATONIC,
 } from '../../config/main.config';
 
+// initial state for synth
+import Tone from 'tone';
+const synth = new Tone.PolySynth(16, Tone.Synth);
+const volume = new Tone.Volume(-16);
+synth.chain(volume, Tone.Master);
+volume.mute = false;
+
+
 import Game from '../../game';
 
 const initialState = {
@@ -59,6 +67,7 @@ const reducer = (state = initialState, action) => {
         ? (state.grid.map(row => row[state.currentColumn])
           .filter(cell => cell.status).map(c => c.note))
         : [];
+        synth.triggerAttackRelease(newCurrentNotes, 0.2);
       return {
         ...state,
         musicBox: {
@@ -99,6 +108,7 @@ const reducer = (state = initialState, action) => {
         },
       };
     case TOGGLE_MUTE:
+      volume.mute = !state.musicBox.mute;
       return {
         ...state,
         musicBox: {

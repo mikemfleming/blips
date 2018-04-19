@@ -41,7 +41,7 @@ export const Box = styled.div`
   }
 `;
 
-export const Controls = styled.div`
+export const ControlsContainer = styled.div`
   height: 50%;
   padding-top: .5rem;
 

@@ -1,10 +1,10 @@
 
 const countNeighbors = (grid, coords, dimensions) => {
   const { rows, columns } = dimensions;
-  let sum = 0 - grid[coords.y][coords.x].status;
+  let sum = 0 - grid[coords.y][coords.x];
   for (let y = -1; y < 2; y += 1) {
     for (let x = -1; x < 2; x += 1) {
-      sum += grid[(y + coords.y + columns) % columns][(x + coords.x + rows) % rows].status;
+      sum += grid[(y + coords.y + columns) % columns][(x + coords.x + rows) % rows];
     }
   }
   return sum;
@@ -12,12 +12,11 @@ const countNeighbors = (grid, coords, dimensions) => {
 
 exports.createGrid = (dimensions, notes) => {
   const { rows, columns } = dimensions;
-  const generateCell = idx => ({ age: 0, status: 0, note: notes[idx % notes.length] });
   const grid = [];
   for (let y = 0; y < rows; y += 1) {
     const row = [];
     for (let x = 0; x < columns; x += 1) {
-      row.push(generateCell(y));
+      row.push(0);
     }
     grid.push(row);
   }
@@ -37,26 +36,27 @@ exports.generateNewGrid = (oldGrid, dimensions, notes) => {
       const neighbors = countNeighbors(oldGrid, { x, y }, dimensions);
       const oldCell = oldGrid[y][x];
 
-      const newStatus = oldCell.status
-        ? (
-          neighbors < 2
-            ? 0
-            : (
-              (neighbors === 2 || neighbors === 3)
-                ? 1
-                : 0
-            )
-        )
-        : neighbors === 3 ? 1 : 0;
-      const newCell = {
-        ...oldCell,
-        age: oldCell.status ? (oldCell.age + 1) : 0,
-        status: newStatus,
-        note: notes[y % notes.length],
-      };
+      const newCell = determineNewStatus(oldCell, neighbors);
+
       row.push(newCell);
     }
     grid.push(row);
   }
   return grid;
 };
+
+function determineNewStatus (oldCell, neighbors) {
+  if (oldCell) {
+    if (neighbors < 2) {
+      return 0;
+    }
+    if (neighbors === 2 || neighbors === 3) {
+      return 1;
+    }
+    return 0;
+  }
+  if (neighbors === 3) {
+    return 1;
+  }
+  return 0;
+}

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import MusicBox from './MusicBox';
 
+import Header from '../components/Header';
 import Grid from '../components/Grid';
 import { TOGGLE_CELL, TOGGLE_CREATE_MODE, EXIT_CREATE_MODE } from '../constants';
 
@@ -11,7 +12,7 @@ const App = ({
   grid, currentColumn, start, stop, toggleCell, playing, toggleCreateMode, createMode, exitCreateMode,
 }) => (
   <div>
-    <Link to="/about" className="link dim black"><h1 className="mb2">Blips of Life</h1></Link>
+    <Header url="/about" />
     <Grid
       exitCreateMode={exitCreateMode}
       grid={grid}

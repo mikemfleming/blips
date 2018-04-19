@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Header from './Header';
 import { GridThing } from '../styles';
 
 const About = () => (
   <div>
-    <Link to="/" className="link dim black"><h1 className="mb2">Blips of Life</h1></Link>
+    <Header url="/" />
     <GridThing className="pl3 pr3 pt3-l ba bw3">
       <div className="f6 f5-l lh-copy measure tj center">
         <p>

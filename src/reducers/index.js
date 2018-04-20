@@ -14,11 +14,15 @@ import {
 } from '../constants';
 
 // initial state for synth
+import StartAudioContext from 'startaudiocontext';
 import Tone from 'tone';
 const synth = new Tone.PolySynth(16, Tone.Synth);
 const volume = new Tone.Volume(-16);
 synth.chain(volume, Tone.Master);
 volume.mute = false;
+StartAudioContext(synth.context, '#root')
+  .then(() => console.log('INITIALIZED WEB AUDIO API'))
+  .catch(() => console.log('FAILED TO INITIALIZE WEB AUDIO API'));
 
 
 import Game from '../game';

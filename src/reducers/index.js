@@ -8,13 +8,10 @@ import {
   EXIT_CREATE_MODE,
   RESET,
   TOGGLE_MUTE,
-} from '../constants';
-
-import {
   INITIAL_DIMENSIONS,
   MAJOR_PENTATONIC,
   MINOR_PENTATONIC,
-} from '../../config/main.config';
+} from '../constants';
 
 // initial state for synth
 import Tone from 'tone';
@@ -24,7 +21,7 @@ synth.chain(volume, Tone.Master);
 volume.mute = false;
 
 
-import Game from '../../game';
+import Game from '../game';
 
 const initialState = {
   grid: Game.createGrid(INITIAL_DIMENSIONS, MAJOR_PENTATONIC),

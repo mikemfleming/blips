@@ -34,7 +34,6 @@ const initialState = {
   musicBox: {
     keys: [MAJOR_PENTATONIC, MINOR_PENTATONIC],
     currentKey: 0,
-    currentNotes: [],
     mute: false,
   },
   createMode: false,
@@ -54,25 +53,30 @@ const reducer = (state = initialState, action) => {
       };
     case TOGGLE_CELL:
       const newGrid = state.grid.slice();
-      newGrid[action.y][action.x].status = state.createMode
+      newGrid[action.y][action.x]= state.createMode
         ? 1
-        : (state.grid[action.y][action.x].status + 1) % 2;
+        : (state.grid[action.y][action.x] + 1) % 2;
       return {
         ...state,
         grid: newGrid,
       };
     case STEP_GRID:
       const nextColumn = (state.currentColumn + 1) % state.dimensions.columns;
-      const newCurrentNotes = state.currentColumn > -1
-        ? (state.grid.map(row => row[state.currentColumn])
-          .filter(cell => cell.status).map(c => c.note))
-        : [];
-        synth.triggerAttackRelease(newCurrentNotes, 0.2);
+      const notes = state.grid.map((row, y) => {
+        const key = state.musicBox.keys[state.musicBox.currentKey];
+        return {
+          active: row[state.currentColumn],
+          note: key[y % key.length],
+        };
+      }).filter(blip => blip.active)
+      .map(blip => blip.note);
+
+      synth.triggerAttackRelease(notes, 0.2);
+      
       return {
         ...state,
         musicBox: {
           ...state.musicBox,
-          currentNotes: newCurrentNotes,
         },
         grid: ((nextColumn === 0 && state.currentColumn > 0)
           ? Game.generateNewGrid(state.grid, state.dimensions, state.musicBox.keys[state.musicBox.currentKey])

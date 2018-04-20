@@ -5,7 +5,7 @@ const Cell = ({
   cell, currentColumn, playing, toggleCell, toggleCreateMode, createMode, x, y,
 }) => {
   let classes = 'cell';
-  if (cell.status) classes += ' active';
+  if (cell) classes += ' active';
   if (currentColumn === x) classes += ' playing';
   if (!playing) classes += ' pointer';
 

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node_modules/.bin/nodemon index.js",
     "build": "node_modules/.bin/webpack --progress --colors --watch",
-    "start": "node_modules/.bin/webpack && node index.js"
+    "start": "node_modules/.bin/webpack --env.production && node index.js"
   },
   "keywords": [],
   "author": "",

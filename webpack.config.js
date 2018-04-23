@@ -1,6 +1,9 @@
 
+require('dotenv').config()
 const path = require('path');
+const webpack = require('webpack');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const { NODE_ENV } = require('./config/main.config');
 
 module.exports = {
   entry: './src/index.js',
@@ -34,8 +37,10 @@ module.exports = {
     new BrowserSyncPlugin({
       host: 'localhost',
       port: '8080',
-      proxy: 'http://localhost:4000'
+      proxy: 'http://localhost:4000',
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+    })
   ],
 };
-

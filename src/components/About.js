@@ -7,8 +7,8 @@ import { Box } from '../styles';
 const About = () => (
   <div>
     <Header url="/" />
-    <Box className="pl3 pr3 pt3-l ba bw3">
-      <div className="f6 f5-l lh-copy measure tj center">
+    <Box className="pl3 pr3 pt3 pt2-m ba bw3">
+      <div className="f5 f4-l lh-copy measure tj center">
         <p>
           Patterns often emerge from chaotic action, sometimes only briefly. Their continuation
           balances along a knife's edge between entropy and order. <em>Blips</em> reimagines each

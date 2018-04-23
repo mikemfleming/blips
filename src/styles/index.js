@@ -4,6 +4,9 @@ export const AppContainer = styled.div`
   margin: auto;
   max-width: 40vw;
   font-size: 1.5rem;
+  @media (max-width: 960px) {
+    max-width: 65vw;
+  }
   @media (max-width: 768px) {
     max-width: 90vw;
   }
@@ -13,6 +16,9 @@ export const AppContainer = styled.div`
 // from grid: ba bw3
 export const Box = styled.div`
   height: 40vw;
+  @media (max-width: 960px) {
+    height: 65vw;
+  }
   @media (max-width: 768px) {
     height: 90vw;
   }

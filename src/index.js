@@ -10,8 +10,13 @@ import App from './components/App';
 import About from './components/About';
 import reducer from './reducers';
 
-const middleware = applyMiddleware(createLogger());
-const store = createStore(reducer, middleware);
+let store;
+if (process.env.NODE_ENV === 'production') {
+  store = createStore(reducer);
+} else {
+  const middleware = applyMiddleware(createLogger());
+  store = createStore(reducer, middleware);
+}
 
 ReactDOM.render(
   <Provider store={store} >

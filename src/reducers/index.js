@@ -4,6 +4,7 @@ import {
   STOP_GAME,
   TOGGLE_CELL,
   TOGGLE_KEY,
+  TOGGLE_SYNTH,
   TOGGLE_CREATE_MODE,
   EXIT_CREATE_MODE,
   RESET,
@@ -11,22 +12,20 @@ import {
   INITIAL_DIMENSIONS,
   MAJOR_PENTATONIC,
   MINOR_PENTATONIC,
+  SYNTH_TYPE
 } from '../constants';
 
 // initial state for synth
 import StartAudioContext from 'startaudiocontext';
 import Tone from 'tone';
-const synth = new Tone.PolySynth(16, Tone.Synth);
 const volume = new Tone.Volume(-16);
-synth.chain(volume, Tone.Master);
-volume.mute = false;
-StartAudioContext(synth.context, '#root')
-  .then(() => console.log('INITIALIZED WEB AUDIO API'))
-  .catch(() => console.log('FAILED TO INITIALIZE WEB AUDIO API'));
-
+const createSynth = (choice=0) => {
+  const synth = new Tone.PolySynth(16, SYNTH_TYPE[choice]);
+  synth.chain(volume, Tone.Master);
+  return synth;
+};
 
 import Game from '../game';
-
 const initialState = {
   grid: Game.createGrid(INITIAL_DIMENSIONS, MAJOR_PENTATONIC),
   currentColumn: -1,
@@ -35,10 +34,17 @@ const initialState = {
   musicBox: {
     keys: [MAJOR_PENTATONIC, MINOR_PENTATONIC],
     currentKey: 0,
+    currentSynth: 0,
     mute: false,
   },
   createMode: false,
 };
+
+var synth = createSynth(initialState.musicBox.currentSynth);
+volume.mute = false;
+StartAudioContext(synth.context, '#root')
+  .then(() => console.log('INITIALIZED WEB AUDIO API'))
+  .catch(() => console.log('FAILED TO INITIALIZE WEB AUDIO API'));
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -91,6 +97,17 @@ const reducer = (state = initialState, action) => {
           ...state.musicBox,
           currentKey: (state.musicBox.currentKey + 1) % state.musicBox.keys.length,
         },
+      };
+    case TOGGLE_SYNTH:
+      synth.dispose();
+      let synthPreset = (state.musicBox.currentSynth + 1) % SYNTH_TYPE.length;
+      synth = createSynth(synthPreset);
+      return {
+        ...state,
+        musicBox: {
+          ...state.musicBox, 
+          currentSynth: synthPreset,
+        }
       };
     case TOGGLE_CREATE_MODE:
       return {

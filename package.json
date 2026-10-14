@@ -2,11 +2,10 @@
   "name": "blips",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "dev": "node_modules/.bin/nodemon index.js",
-    "build": "node_modules/.bin/webpack --progress --colors --watch",
-    "start": "node_modules/.bin/webpack && node index.js"
+    "dev": "node --openssl-legacy-provider scripts/dev.js",
+    "build": "node --openssl-legacy-provider node_modules/webpack/bin/webpack.js --mode production",
+    "start": "npm run dev"
   },
   "keywords": [],
   "author": "",
@@ -18,13 +17,8 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "babelify": "^8.0.0",
-    "browser-sync": "^2.23.6",
     "browserify": "^16.1.1",
-    "dotenv": "^5.0.1",
     "es6-promise": "^4.2.4",
-    "express": "^4.16.3",
-    "pino": "^4.14.0",
-    "pino-http": "^3.2.1",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -41,13 +35,10 @@
     "webpack-cli": "^2.0.12"
   },
   "devDependencies": {
-    "browser-sync-webpack-plugin": "^2.2.2",
     "eslint": "^4.19.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0",
-    "nodemon": "^1.17.3",
-    "webpack-dev-server": "^3.1.1"
+    "eslint-plugin-react": "^7.7.0"
   }
 }

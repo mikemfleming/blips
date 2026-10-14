@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
-import { BrowserRouter, Route, BrowserHistory } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 
 import { AppContainer } from './styles';
 import App from './components/App';
@@ -20,12 +20,12 @@ if (process.env.NODE_ENV === 'production') {
 
 ReactDOM.render(
   <Provider store={store} >
-    <BrowserRouter history={BrowserHistory}>
+    <HashRouter>
       <AppContainer>
         <Route path="/" exact component={App} />
         <Route path="/about" component={About} />
       </AppContainer>
-    </BrowserRouter>
+    </HashRouter>
   </Provider>,
   document.getElementById('root'),
 );

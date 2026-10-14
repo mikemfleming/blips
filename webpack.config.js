@@ -1,16 +1,28 @@
-
-require('dotenv').config()
+const fs = require('fs');
 const path = require('path');
-const webpack = require('webpack');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const { NODE_ENV } = require('./config/main.config');
+
+// Emit the HTML and icon alongside the bundle, including during development.
+class StaticAssetsPlugin {
+  apply(compiler) {
+    compiler.hooks.emit.tap('StaticAssetsPlugin', (compilation) => {
+      ['index.html', 'favicon.png'].forEach((filename) => {
+        const content = fs.readFileSync(path.resolve(__dirname, filename));
+        compilation.assets[filename] = {
+          source: () => content,
+          size: () => content.length,
+        };
+      });
+    });
+  }
+}
 
 module.exports = {
   entry: './src/index.js',
   devtool: 'source-map',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: './',
   },
   module: {
     rules: [
@@ -20,27 +32,11 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015', 'react', 'stage-3'],
+            presets: ['env', 'react', 'stage-3'],
           },
         },
       },
     ],
   },
-  devServer: {
-    proxy: {
-      '*': {
-        target: 'http://localhost:4000',
-      },
-    },
-  },
-  plugins: [
-    new BrowserSyncPlugin({
-      host: 'localhost',
-      port: '8080',
-      proxy: 'http://localhost:4000',
-    }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-    })
-  ],
+  plugins: [new StaticAssetsPlugin()],
 };
